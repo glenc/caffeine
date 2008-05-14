@@ -1,0 +1,5 @@
+Caffeine is a Javascript library for working with SharePoint 2007. Caffeine is designed to make building applications on SharePoint easier especially in environments where server-side code is not an option. Caffeine also makes it easy to create Ajax-driven applications on top of SharePoint.
+
+Today Caffeine is very early in development and I anticipate adding quite a bit of functionality over the coming months. The APIs will likely change somewhat as I continue to fix bugs and work out a model that is easy and logical to use. But in the mean time I would appriciate any input and feedback you may have.
+
+Today the most fully-baked portion of Caffeine is the SharePoint web service support. Caffeine supports calling any of SharePoint’s web services. In addition, Caffeine will parse the XML response into a convenient Javascript object-based syntax.
