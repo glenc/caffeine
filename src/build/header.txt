@@ -1,0 +1,7 @@
+/**
+ * @author Glen Cooper <glen@glenc.net>
+ * @copyright 2007 Glen Cooper
+ * @license MIT
+ * @url http://www.glenc.net/projects/cafine
+ * @version 0.1
+ */

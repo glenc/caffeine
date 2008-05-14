@@ -1,0 +1,37 @@
+<html>
+<head>
+	<title>Caffeine Unit Tests</title>
+	<script language="javascript" src="../lib/prototype.js"></script>
+	<script language="javascript" src="../lib/unittesting.js"></script>
+	<script language="javascript" src="../source/caffeine.js"></script>
+	<script language="javascript" src="../source/soap.js"></script>
+	<script language="javascript" src="../source/util.js"></script>
+	
+	<script language="javascript" src="tests/utiltests.js"></script>
+	<script language="javascript" src="tests/soaptests.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="styles/styles.css">
+</head>
+<body>
+
+<h1>Caffeine Unit Tests</h1>
+
+<h2>Caffeine.Util</h2>
+<div id="Caffeine_Util_Output" class="testContainer"></div>
+
+<h2>Caffeine.Soap</h2>
+<div id="Caffeine_Soap_Output" class="testContainer"></div>
+
+<script language="javascript">
+
+function run() {
+	TestFixture.run(Caffeine_UnitTests_Util, $('Caffeine_Util_Output'));
+	TestFixture.run(Caffeine_UnitTests_Soap, $('Caffeine_Soap_Output'));
+}
+
+Event.observe(window, "load", run)
+
+</script>
+
+</body>
+</html>

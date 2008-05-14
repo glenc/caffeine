@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>Caffeine Unit Tests - Caffeine.wsswebservices</title>
+		<script language="JavaScript" src="../lib/prototype.js"></script>
+		<script language="JavaScript" src="../source/caffeine.js"></script>
+		<script language="JavaScript" src="../source/soap.js"></script>
+		<script language="JavaScript" src="../source/wsswebservices.js"></script>
+		<link rel="stylesheet" type="text/css" href="styles/styles.css">
+	</head>
+	<body>
+		<h1>Caffeine Testing - WSS Web Services</h1>
+		
+		<table width="100%" cellspacing="0" cellpadding="0" border="0">
+			<tr>
+				<td style="width:50%; vertical-align:top">
+					<h2>Input</h2>
+					
+					<h3>Site Url:</h3>
+					<input type="text" id="siteUrl" style="width:96%" value="http://"><br/>
+					
+					<h3>Service:</h3>
+					<select id="service" style="width:96%"></select><br/>
+					
+					<h3>Method:</h3>
+					<input type="text" id="method" style="width:96%"><br/>
+					
+					<h3>Parameters:</h3>
+					<textarea id="parameters" style="width:96%" rows="20">{}</textarea>
+					
+					<button onclick="execute()">Submit</button>
+				</td>
+				<td style="width:50%; vertical-align:top">
+					<h2>Results</h2>
+					
+					<h3>JSON</h3>
+					<textarea id="outJSON" style="width:96%" rows="10"></textarea>
+					
+					<h3>Raw Output</h3>
+					<textarea id="outRaw" style="width:96%" rows="20"></textarea>
+					
+					<h3>Status Code</h3>
+					<span id="outCode"></span>
+				</td>
+			</tr>
+		</table>
+		
+		
+		<script language="JavaScript">
+		
+		function buildServices() {
+			var services = $H(Caffeine.WebServices);
+			services.each(function(pair) {
+				var name = pair.key;
+				
+				if (name != "Base") {
+					var ws = new Caffeine.WebServices[name]();
+					$("service").options.add(new Option(name + " (" + ws.service + ")", name, false));
+				}
+			});
+		}
+		
+		function execute() {
+			disable("siteUrl");
+			disable("service");
+			disable("method");
+			disable("parameters");
+			disable("outJSON");
+			disable("outRaw");
+			
+			
+			var url = $("siteUrl").value;
+			var service = $("service").value;
+			var method = $("method").value;
+			var ps = $("parameters").value.evalJSON();
+			
+			var ws = new Caffeine.WebServices[service](url);
+			ws.executeMethod(method, ps, callback);
+		}
+		
+		function callback(output) {
+			enable("siteUrl");
+			enable("service");
+			enable("method");
+			enable("parameters");
+			enable("outJSON");
+			enable("outRaw");
+			
+			$("outJSON").value = Object.toJSON(output.response);
+			$("outRaw").value = output.httpResponse.responseText.replace(/>/g, ">\n");
+			$("outCode").innerHTML = output.httpResponse.status;
+		}
+		
+		function disable(e) {
+			$(e).disabled = true;
+			$(e).addClassName("disabled");
+		}
+		
+		function enable(e) {
+			$(e).disabled = false;
+			$(e).removeClassName("disabled");
+		}
+		
+		Event.observe(window, "load", buildServices)
+		
+		</script>
+		
+	</body>
+</html>
